@@ -1,14 +1,18 @@
-import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { FibonacciService } from './fibonacci/fibonacci.service';
-import { NumberService } from './number/number.service';
 import { ReverseService } from './reverse/reverse.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService,
+  constructor(
+    private readonly appService: AppService,
     private readonly fibonacciService: FibonacciService,
-    private readonly numberService: NumberService,
     private readonly reverseService: ReverseService,
   ) {}
 
@@ -18,22 +22,12 @@ export class AppController {
   }
 
   @Get('reverse')
-  reverse(@Query('number') candidateNumber: string) {
-    const numberToReverse = this.numberService.getNumber(candidateNumber);
-    try {
-      return this.reverseService.reverse(numberToReverse);
-    } catch (err: any) {
-      throw new BadRequestException(err.message);
-    }
+  reverse(@Query('number', ParseIntPipe) candidateNumber: number) {
+    return this.reverseService.reverse(candidateNumber);
   }
 
   @Get('fibonacci')
-  fibonacci(@Query('number') candidateNumber: string) {
-    const numberToReverse = this.numberService.getNumber(candidateNumber);
-    try {
-      return this.fibonacciService.fibonacci(numberToReverse);
-    } catch (err: any) {
-      throw new BadRequestException(err.message);
-    }
+  fibonacci(@Query('number', ParseIntPipe) candidateNumber: number) {
+    return this.fibonacciService.fibonacci(candidateNumber);
   }
 }

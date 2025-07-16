@@ -1,9 +1,7 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
-import { NumberService } from '../number/number.service';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ReverseService {
-  constructor(private readonly numberService: NumberService) {}
   /**
    * Reverse an integer without using string methods.
    *
@@ -17,9 +15,6 @@ export class ReverseService {
    * @returns The reversed integer.
    */
   reverse(intToReverse: number): number {
-    if (!this.numberService.validateInteger(intToReverse)) {
-      throw new TypeError(`The parameter ${intToReverse} is not an integer.`);
-    }
     const sign: number = intToReverse < 0 ? -1 : 1;
     return (
       sign *

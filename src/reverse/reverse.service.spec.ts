@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ReverseService } from './reverse.service';
-import { NumberService } from '../number/number.service';
 
 describe('ReverseService', () => {
   let service: ReverseService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [NumberService, ReverseService],
+      providers: [ReverseService],
     }).compile();
 
     service = module.get<ReverseService>(ReverseService);
@@ -23,11 +22,5 @@ describe('ReverseService', () => {
 
   it('should return 0 for int larger than 2**31 - 1', () => {
     expect(service.reverse(2 ** 31)).toBe(0);
-  });
-
-  it('should raise exception for non-integer', () => {
-    expect(() => {
-      service.reverse(1.1);
-    }).toThrow(TypeError);
   });
 });

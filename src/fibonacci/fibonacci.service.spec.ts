@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FibonacciService } from './fibonacci.service';
-import { NumberService } from '../number/number.service';
 
 describe('FibonacciService', () => {
   let service: FibonacciService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FibonacciService, NumberService],
+      providers: [FibonacciService],
     }).compile();
 
     service = module.get<FibonacciService>(FibonacciService);
@@ -27,11 +26,5 @@ describe('FibonacciService', () => {
 
   it('should return 8 for cardinality 6', () => {
     expect(service.fibonacci(6)).toBe(8);
-  });
-
-  it('should throw TypeError for float', () => {
-    expect(() => {
-      service.fibonacci(1.1);
-    }).toThrow(TypeError);
   });
 });
