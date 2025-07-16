@@ -5,6 +5,7 @@ import { FibonacciService } from './fibonacci/fibonacci.service';
 import { ReverseService } from './reverse/reverse.service';
 import { FibonacciResponseDto } from './fibonacci/fibonacci-response.dto';
 import { ReverseResponseDto } from './reverse/reverse-response.dto';
+import { ReverseRequestDto } from './reverse/reverse-request.dto';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -28,7 +29,9 @@ describe('AppController', () => {
     });
 
     it('should return a reversed integer', () => {
-      expect(appController.reverse(321)).toEqual(new ReverseResponseDto(123));
+      expect(appController.reverse(new ReverseRequestDto(321))).toEqual(
+        new ReverseResponseDto(123),
+      );
     });
   });
 });
