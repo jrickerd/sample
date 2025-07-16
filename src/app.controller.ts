@@ -2,7 +2,6 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  ParseIntPipe,
   Query,
   UseInterceptors,
 } from '@nestjs/common';
@@ -12,6 +11,7 @@ import { ReverseService } from './reverse/reverse.service';
 import { FibonacciResponseDto } from './fibonacci/fibonacci-response.dto';
 import { ReverseResponseDto } from './reverse/reverse-response.dto';
 import { ReverseRequestDto } from './reverse/reverse-request.dto';
+import { FibonacciRequestDto } from './fibonacci/fibonacci-request.dto';
 
 @Controller()
 export class AppController {
@@ -35,8 +35,8 @@ export class AppController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('fibonacci')
   fibonacci(
-    @Query('number', ParseIntPipe) candidateNumber: number,
+    @Query() fibonacciRequest: FibonacciRequestDto,
   ): FibonacciResponseDto {
-    return this.fibonacciService.fibonacci(candidateNumber);
+    return this.fibonacciService.fibonacci(fibonacciRequest.candidate);
   }
 }

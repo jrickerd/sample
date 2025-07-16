@@ -37,6 +37,6 @@ $ npm run test:cov
 
 ## To invoke:
 ```bash
-$ curl localhost:3000/reverse\?number=12345
-$ curl localhost:3000/fibonacci\?number=5
+$ curl localhost:3000/reverse\?candidate=12345
+$ curl localhost:3000/fibonacci\?candidate=5
 ```
