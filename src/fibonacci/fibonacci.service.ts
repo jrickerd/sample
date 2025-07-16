@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { FibonacciResponseDto } from './fibonacci-response.dto';
 
 @Injectable()
 export class FibonacciService {
-  fibonacci(cardinality: number): number {
+  private compute(cardinality: number): number {
     if (cardinality <= 1) {
       return cardinality;
     }
-    return this.fibonacci(cardinality - 2) + this.fibonacci(cardinality - 1);
+    return this.compute(cardinality - 2) + this.compute(cardinality - 1);
+  }
+
+  fibonacci(cardinality: number): FibonacciResponseDto {
+    return new FibonacciResponseDto(this.compute(cardinality));
   }
 }

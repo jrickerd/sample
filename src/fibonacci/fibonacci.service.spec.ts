@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FibonacciService } from './fibonacci.service';
+import { FibonacciResponseDto } from './fibonacci-response.dto';
 
 describe('FibonacciService', () => {
   let service: FibonacciService;
@@ -16,15 +17,15 @@ describe('FibonacciService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return 0 for cardinality 0', () => {
-    expect(service.fibonacci(0)).toBe(0);
+  it('should return dto with result 0 for cardinality 0', () => {
+    expect(service.fibonacci(0)).toEqual(new FibonacciResponseDto(0));
   });
 
   it('should return 1 for cardinality 1', () => {
-    expect(service.fibonacci(1)).toBe(1);
+    expect(service.fibonacci(1)).toEqual(new FibonacciResponseDto(1));
   });
 
   it('should return 8 for cardinality 6', () => {
-    expect(service.fibonacci(6)).toBe(8);
+    expect(service.fibonacci(6)).toEqual(new FibonacciResponseDto(8));
   });
 });

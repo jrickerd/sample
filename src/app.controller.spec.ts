@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FibonacciService } from './fibonacci/fibonacci.service';
 import { ReverseService } from './reverse/reverse.service';
+import { FibonacciResponseDto } from './fibonacci/fibonacci-response.dto';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -22,7 +23,7 @@ describe('AppController', () => {
     });
 
     it('should return a fibonacci', () => {
-      expect(appController.fibonacci(3)).toBe(2);
+      expect(appController.fibonacci(3)).toEqual(new FibonacciResponseDto(2));
     });
 
     it('should return a reversed integer', () => {
