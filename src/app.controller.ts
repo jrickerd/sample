@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { FibonacciService } from './fibonacci/fibonacci.service';
 import { ReverseService } from './reverse/reverse.service';
 import { FibonacciResponseDto } from './fibonacci/fibonacci-response.dto';
+import { ReverseResponseDto } from './reverse/reverse-response.dto';
 
 @Controller()
 export class AppController {
@@ -24,8 +25,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('reverse')
-  reverse(@Query('number', ParseIntPipe) candidateNumber: number) {
+  reverse(
+    @Query('number', ParseIntPipe) candidateNumber: number,
+  ): ReverseResponseDto {
     return this.reverseService.reverse(candidateNumber);
   }
 
