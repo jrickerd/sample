@@ -4,10 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import {
-  instanceToPlain,
-  plainToInstance,
-} from 'class-transformer';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
