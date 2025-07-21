@@ -16,7 +16,7 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports:[
+      imports: [
         MemoizeModule,
         TypeOrmModule.forRoot({
           type: 'sqlite',
