@@ -34,9 +34,9 @@ export class AppController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('fibonacci')
-  fibonacci(
+  async fibonacci(
     @Query() fibonacciRequest: FibonacciRequestDto,
-  ): FibonacciResponseDto {
-    return this.fibonacciService.fibonacci(fibonacciRequest.candidate);
+  ): Promise<FibonacciResponseDto> {
+    return await this.fibonacciService.fibonacci(fibonacciRequest.candidate);
   }
 }

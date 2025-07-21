@@ -7,12 +7,25 @@ import { FibonacciResponseDto } from './fibonacci/fibonacci-response.dto';
 import { ReverseResponseDto } from './reverse/reverse-response.dto';
 import { ReverseRequestDto } from './reverse/reverse-request.dto';
 import { FibonacciRequestDto } from './fibonacci/fibonacci-request.dto';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MemoEntity } from './memoize/entities/memo.entity';
+import { MemoizeModule } from './memoize/memoize.module';
 
 describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
+      imports:[
+        MemoizeModule,
+        TypeOrmModule.forRoot({
+          type: 'sqlite',
+          database: ':memory',
+          entities: [MemoEntity],
+          synchronize: true,
+        }),
+        TypeOrmModule.forFeature([MemoEntity]),
+      ],
       controllers: [AppController],
       providers: [AppService, FibonacciService, ReverseService],
     }).compile();
@@ -25,8 +38,8 @@ describe('AppController', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
 
-    it('should return a fibonacci', () => {
-      expect(appController.fibonacci(new FibonacciRequestDto(3))).toEqual(
+    it('should return a fibonacci', async () => {
+      expect(await appController.fibonacci(new FibonacciRequestDto(3))).toEqual(
         new FibonacciResponseDto(2),
       );
     });

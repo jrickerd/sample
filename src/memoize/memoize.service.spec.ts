@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
+import { MemoizeService } from './memoize.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { MemoEntity } from './entities/memo.entity';
 
-describe('UserService', () => {
-  let service: UserService;
+describe('MemoizeService', () => {
+  let service: MemoizeService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -12,15 +12,15 @@ describe('UserService', () => {
         TypeOrmModule.forRoot({
           type: 'sqlite',
           database: ':memory',
-          entities: [User],
+          entities: [MemoEntity],
           synchronize: true,
         }),
-        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([MemoEntity]),
       ],
-      providers: [UserService],
+      providers: [MemoizeService],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    service = module.get<MemoizeService>(MemoizeService);
   });
 
   it('should be defined', () => {
